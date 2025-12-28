@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJELER | AKARE MİMARLIK</title>
+    
+    <!-- CSS Kaynakları -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Fontlar & İkonlar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<script type="text/javascript">
+    window.$crisp=[];
+    window.CRISP_WEBSITE_ID="06682cb4-0c18-4142-bb07-501508bd98de";
+    (function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+
+    // 1. Kural: Daha sayfa yüklenirken butonu gizle (Kalıcı yapılandırma)
+    $crisp.push(["set", "chat:display:none", [true]]); 
+
+    // 2. Kural: Crisp motoru hazır olduğunda hemen saklan (Preloader sonrası çıkışı engeller)
+    $crisp.push(["on", "session:loaded", function(){
+        $crisp.push(['do', 'chat:hide']);
+    }]);
+
+    // 3. Kural: Chat penceresi her kapandığında butonu tekrar gizle
+    $crisp.push(["on", "chat:closed", function() {
+        $crisp.push(['do', 'chat:hide']);
+    }]);
+
+    // Senin kendi butonun için tetikleyici fonksiyon
+    function openCustomChat() { 
+        $crisp.push(['do', 'chat:show']); // Önce görünür yap
+        $crisp.push(['do', 'chat:open']); // Sonra aç
+    }
+</script>
+</head>
+<body class="loading">
+    
+    <!-- Kaydırma İlerleme Çubuğu -->
+    <div id="scroll-progress-bar"></div>
+
+    <header>
+        <div class="container header-layout">
+            <a href="index.html" class="logo">
+                <div class="logo-wrapper">
+                    <svg viewBox="0 0 200 90" class="logo-svg">
+                        <text x="50%" y="55%" text-anchor="middle" class="svg-main-text">akare²</text>
+                        <text x="50%" y="80%" text-anchor="middle" class="svg-sub-text">design studio</text>
+                    </svg>
+                </div>
+            </a>
+            <nav class="nav-desktop">
+                <a href="index.html">Ana Sayfa</a>
+                <a href="projeler.html" class="active">Projeler</a>
+                <a href="index.html#iletisim">İletişim</a>
+            </nav>
+            <button class="menu-btn" onclick="toggleMenu()">
+                <div class="bar"></div><div class="bar"></div>
+            </button>
+            
+            <nav id="mobile-nav">
+                <div class="mobile-nav-container">
+                    <a href="index.html" class="mobile-big-link">Ana Sayfa</a>
+                    <a href="projeler.html" class="mobile-big-link active">Projeler</a>
+                    <a href="index.html#iletisim" class="mobile-big-link" onclick="toggleMenu()">İletişim</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero bg-green" style="padding-top: 140px; padding-bottom: 2rem;">
+        <div class="container">
+            <div class="hero-text-wrapper reveal-on-scroll" style="display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;">
+                <h1 class="page-title" style="color:white;">İMZA PROJELER</h1>
+                <span class="hero-eyebrow" style="color:var(--accent);">/ PORTFOLYO</span>
+            </div>
+            
+            <div class="filter-menu reveal-on-scroll" style="margin-top: 3rem;">
+                <button class="filter-btn active" onclick="filterProjects('all')">TÜMÜ</button>
+                <button class="filter-btn" onclick="filterProjects('VİLLA')">VİLLA</button>
+                <button class="filter-btn" onclick="filterProjects('RENOVASYON')">RENOVASYON</button>
+                <button class="filter-btn" onclick="filterProjects('TİCARİ')">TİCARİ</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS ile Render Edilen Proje Alanı -->
+    <main id="full-width-project-wrapper" style="min-height: 50vh;"></main>
+
+    <footer>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+                <div class="footer-col">
+                    <h2 style="color: white; letter-spacing: -1px;">akare²</h2>
+                    <p style="font-size: 0.9rem; color: #999;">Modern villa tasarımında yeni bir perspektif.</p>
+                </div>
+                <div class="footer-col">
+                    <a href="#" class="social-icon-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.1); margin-top:3rem; padding-top:2rem; text-align:center; font-size:0.8rem; opacity:0.5;">&copy; 2025 AKARE MİMARLIK.</div>
+        </div>
+    </footer>
+
+    <!-- 1. MASAÜSTÜ: AKILLI AKSİYON BARI (DOCK) -->
+    <div class="action-dock-container">
+        <div class="action-dock">
+            <a href="index.html#iletisim" class="dock-item dock-main-btn">
+                <span class="dock-text">Teklif Al</span>
+            </a>
+            <div class="dock-separator"></div>
+            <div class="dock-icons">
+                <a href="https://wa.me/905000000000" target="_blank" class="dock-icon-link">
+                    <div class="icon-circle"><i class="fab fa-whatsapp"></i></div>
+                </a>
+                <a href="tel:+902120000000" class="dock-icon-link">
+                    <div class="icon-circle"><i class="fas fa-phone-alt"></i></div>
+                </a>
+            </div>
+            <div class="dock-separator"></div>
+            <div onclick="openCustomChat()" class="dock-item dock-chat-btn">
+                <div class="chat-icon-group">
+                    <i class="fas fa-comment-dots chat-main-icon"></i>
+                    <div class="status-dot-wrapper">
+                        <div class="status-dot"></div>
+                        <div class="status-dot-pulse"></div>
+                    </div>
+                </div>
+                <span class="dock-text">Canlı Destek!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. MOBİL: DİKEY AKILLI SİSTEM (FAB) -->
+    <div class="mobile-comm-wrapper" id="mobileCommWrapper">
+        <button id="mScrollTopBtn" class="m-stack-btn m-scroll-btn">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+        <div class="mobile-comm-options" id="mobileCommOptions">
+            <a href="tel:+902120000000" class="m-stack-btn m-phone">
+                <span class="m-side-label">Bizi Arayın</span>
+                <i class="fas fa-phone-alt"></i>
+            </a>
+            <a href="https://wa.me/905000000000" target="_blank" class="m-stack-btn m-whatsapp">
+                <span class="m-side-label">WhatsApp</span>
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <div onclick="openCustomChat()" class="m-stack-btn m-chat">
+                <span class="m-side-label">Canlı Destek!</span>
+                <i class="fas fa-comments"></i>
+                <div class="m-live-dot"></div>
+            </div>
+        </div>
+
+        <button class="m-trigger-btn" onclick="toggleMobileComm()">
+            <span class="m-teklif-label">Teklif Al</span>
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 3. MASAÜSTÜ YUKARI ÇIK BUTONU -->
+    <button id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- GALERİ LIGHTBOX -->
+    <div id="project-lightbox" class="lightbox">
+        <div class="lightbox-header">
+            <div id="lb-counter" class="lb-counter">1 / 1</div>
+            <div class="lightbox-close" onclick="closeLightbox()">&times;</div>
+        </div>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper" id="swiper-wrapper"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <div class="lightbox-footer">
+            <div class="lb-content">
+                <div class="lb-info-group">
+                    <span id="lb-category" class="lb-tag"></span>
+                    <h3 id="lb-title"></h3>
+                    <p id="lb-details"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Scriptler -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="main.js"></script>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AKARE | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+<style>
+    /* --- 1. TEMEL AYARLAR --- */
+    :root { 
+        --deep-green: #0d1b1e; 
+        --accent: #C07F5C; 
+        --bg: #F2EFE8; 
+        --white: #ffffff;
+        --sidebar-width: 380px;
+        --tab-height: 70px;
+        --border-color: #eee;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+    
+    body { 
+        font-family: 'Outfit', sans-serif; 
+        background-color: var(--white); 
+        margin: 0; padding: 0;
+        display: flex; height: 100dvh; overflow: hidden;
+        color: var(--deep-green);
+    }
+
+    /* --- 2. GİRİŞ PANELİ (MATRIX) --- */
+    #matrix-overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #00ff41; font-family: 'Courier New', monospace; }
+    #matrix-content { text-align: left; width: 85%; max-width: 450px; }
+    #admin-pass { background: transparent; border: 1px solid #00ff41; color: #00ff41; padding: 15px; width: 100%; margin-top: 20px; font-size: 1.2rem; border-radius: 4px; }
+
+    /* --- 3. MASAÜSTÜ SIDEBAR --- */
+    .sidebar { 
+        width: var(--sidebar-width); background: #fcfcfc; border-right: 1px solid var(--border-color);
+        display: flex; flex-direction: column; flex-shrink: 0;
+    }
+    .sidebar-header { padding: 30px 25px; border-bottom: 1px solid var(--border-color); }
+    .sidebar-header h2 { margin: 0; font-weight: 800; font-size: 1.6rem; letter-spacing: -1px; }
+    
+    .project-list { flex: 1; overflow-y: auto; padding: 20px; background: #fdfdfd; }
+    .list-section-title { font-size: 0.65rem; font-weight: 800; color: #bbb; text-transform: uppercase; letter-spacing: 1.2px; margin: 20px 5px 10px; display: block; }
+
+    /* KART TASARIMI (Hizalama Sorunu Çözüldü) */
+    .project-item { 
+        background: white; border-radius: 12px; padding: 15px; margin-bottom: 12px;
+        border: 1px solid var(--border-color); transition: 0.3s; cursor: pointer;
+        position: relative; width: 100%; overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    
+    /* Seçkin proje çizgisi artık genişliği etkilemiyor (box-shadow kullanıldı) */
+    .project-item.is-featured { 
+        box-shadow: inset 4px 0 0 #f1c40f, 0 2px 8px rgba(0,0,0,0.02); 
+        background: #fffdf5; 
+    }
+
+    .item-main { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .item-info b { display: block; font-size: 0.9rem; color: var(--deep-green); margin-bottom: 2px; }
+    .item-info span { font-size: 0.65rem; color: var(--accent); font-weight: 700; text-transform: uppercase; }
+    
+    .item-actions { display: flex; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #fafafa; }
+    .btn-mini { border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+    .btn-mini-star { background: #fef9e7; color: #f1c40f; }
+    .btn-mini-edit { background: #ebf5ff; color: #007bff; }
+    .btn-mini-delete { background: #fff0f0; color: #dc3545; }
+
+    .sidebar-footer { padding: 20px; border-top: 1px solid var(--border-color); background: #fcfcfc; }
+    .btn-logout-final { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ffdada; background: #fffafa; color: #dc3545; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; }
+
+    /* --- 4. ANA İÇERİK --- */
+    .main-content { flex: 1; overflow-y: auto; padding: 40px; display: grid; grid-template-columns: 1fr 420px; gap: 40px; background-color: var(--bg); }
+    .form-card { background: var(--white); padding: 40px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.02); height: fit-content; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.85rem; color: #555; }
+    input, select, textarea { width: 100%; padding: 14px; border: 1px solid #e0e0e0; border-radius: 12px; font-family: inherit; font-size: 1rem; background: #fdfdfd; }
+    input:focus { border-color: var(--accent); background: white; }
+
+    .featured-wrapper { background: #fff9e6; border: 1px solid #ffe4b3; padding: 15px; border-radius: 15px; display: flex; align-items: center; gap: 12px; margin-bottom: 25px; }
+    .featured-wrapper input { width: 22px; height: 22px; cursor: pointer; }
+    .flex-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+    .custom-file-label { display: block; padding: 20px; background: #f8f9fa; border: 2px dashed #ddd; border-radius: 15px; text-align: center; cursor: pointer; font-weight: 700; color: #777; transition: 0.3s; }
+    .image-manager { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+    .img-slot { width: 85px; height: 85px; border-radius: 10px; overflow: hidden; position: relative; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.06); }
+    .img-slot img { width: 100%; height: 100%; object-fit: cover; }
+    .remove-btn { position: absolute; top: 3px; right: 3px; background: rgba(220,53,69,0.9); color: white; border: none; width: 20px; height: 20px; border-radius: 50%; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    .btn-group { display: flex; gap: 12px; margin-top: 30px; }
+    .btn-main { flex: 2; background: var(--deep-green); color: white; padding: 18px; border: none; border-radius: 50px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+    .btn-cancel { flex: 1; background: #eee; color: #666; padding: 18px; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; display: none; }
+
+    /* MOCKUP (ÖNİZLEME) */
+    .mockup-pane { position: sticky; top: 0; height: fit-content; }
+    .preview-label-text { margin-bottom: 12px; display: block; color: #aaa; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 1.5px; font-weight: 800; }
+    .mockup-container { background: var(--white); padding: 30px 20px; border-radius: 25px; border: 1px solid var(--border-color); text-align: left; box-shadow: 0 5px 20px rgba(0,0,0,0.02); }
+    .mockup-row { display: flex; align-items: center; gap: 20px; }
+    .m-cat { color: var(--accent); font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+    .m-title { font-size: 1.6rem; font-weight: 800; margin: 5px 0; color: var(--deep-green); line-height: 1.1; }
+    .m-meta { font-size: 0.8rem; font-weight: 600; color: #999; margin-bottom: 12px; display: block; }
+    .m-lead { font-size: 0.9rem; line-height: 1.5; color: #555; }
+    .m-img { width: 170px; aspect-ratio: 16/10; background: #eee; border-radius: 10px; object-fit: cover; }
+    .m-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px; }
+    .m-gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; }
+
+    /* --- 5. MOBİL TASARIM (KESİN ÇÖZÜM) --- */
+    .mobile-tabs { display: none; }
+    .mobile-only-btn { display: none; }
+
+    @media (max-width: 1100px) {
+        body { background-color: var(--white); }
+        .mobile-tabs { 
+            display: flex; position: fixed; bottom: 0; width: 100%; height: var(--tab-height);
+            background: white; border-top: 1px solid var(--border-color); justify-content: space-around; 
+            align-items: center; z-index: 2000; padding-bottom: env(safe-area-inset-bottom);
+        }
+        .tab-btn { background: none; border: none; color: #ccc; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; font-weight: 800; gap: 5px; flex: 1; font-family: inherit; }
+        .tab-btn.active { color: var(--deep-green); }
+        .tab-btn i { font-size: 1.4rem; }
+
+        .sidebar, .main-content { 
+            width: 100% !important; 
+            height: calc(100dvh - var(--tab-height)); 
+            position: fixed; top: 0; left: 0; 
+            overflow-y: auto; background: white;
+            padding: 25px 20px 0; 
+            display: none; 
+            flex-direction: column;
+        }
+        
+        body.tab-form .main-content { display: flex; }
+        body.tab-list .sidebar { display: flex; }
+
+        /* Mobil Liste Kartları Hizalama Fix */
+        body.tab-list .project-list {
+            flex: 1 0 auto;
+            padding: 0 5px 20px 5px; /* Kenarlardan çok hafif boşluk ki gölge taşmasın */
+        }
+        body.tab-list .project-item {
+            width: 100%;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 18px;
+            transform: none !important; /* Mobil kaymayı engeller */
+        }
+        body.tab-list .item-main { flex-direction: column; gap: 4px; }
+        body.tab-list .item-info b { font-size: 1.05rem; }
+        body.tab-list .btn-mini { width: 42px; height: 42px; font-size: 1.05rem; border-radius: 10px; }
+
+        /* Mobil Alt Butonları İtme */
+        .sidebar-footer, .form-logout-wrapper {
+            margin-top: auto;
+            padding: 20px 0 40px 0;
+            width: 100%;
+        }
+
+        body.tab-form .form-card { padding: 0; border-radius: 0; box-shadow: none; }
+        body.tab-form .mockup-pane { position: relative; display: block; margin-top: 40px; }
+        body.tab-form .mockup-container { padding: 25px 15px; border-radius: 20px; background: var(--bg); border: none; }
+        body.tab-form .mockup-row { flex-direction: column-reverse; text-align: center; }
+        body.tab-form .m-img { width: 100%; max-width: 280px; margin: 10px auto 0; }
+        
+        .mobile-only-btn { display: flex !important; }
+        .sidebar .sidebar-footer { display: block !important; }
+    }
+</style>
+
+</head>
+<body class="tab-form">
+
+    <!-- MATRIX LOGİSİ -->
+    <div id="matrix-overlay">
+        <div id="matrix-content">
+            <p id="matrix-line1"></p>
+            <p id="matrix-line2"></p>
+            <div id="pass-area" style="display:none">
+                <input type="password" id="admin-pass" placeholder="ERİŞİM ANAHTARI">
+                <p id="matrix-error" style="color:#ff4d4d; display:none; margin-top:15px; font-weight: bold;">! ANAHTAR HATALI</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJE LİSTESİ (SADECE LİSTE SEKMESİNDE) -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Projeler</h2>
+            <p style="font-size: 0.8rem; margin: 5px 0 0; color: #999;">Tüm portfolyo yönetimi</p>
+        </div>
+        <div id="admin-project-list" class="project-list"></div>
+        <div style="padding: 20px;">
+            <button class="btn-logout-final" onclick="window.adminLogout()">
+                <i class="fas fa-power-off"></i> SİSTEMDEN ÇIKIŞ YAP
+            </button>
+        </div>
+    </div>
+
+ <div class="main-content">
+    
+    <!-- 1. FORM KARTI -->
+    <div class="form-card">
+        <h2 id="form-mode-title" style="margin-top:0; font-size: 1.8rem;">Yeni Proje</h2>
+        <form id="projectForm">
+            <input type="hidden" id="editing-id">
+            
+            <div class="form-group">
+                <label>Proje Adı</label>
+                <input type="text" id="p-title" required>
+            </div>
+
+            <div class="featured-wrapper">
+                <input type="checkbox" id="p-featured">
+                <label for="p-featured" style="margin:0; color:#b38600; cursor:pointer; font-weight: 800;">
+                    ⭐ Ana Sayfada Göster
+                </label>
+            </div>
+
+            <div class="flex-row">
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="p-category">
+                        <option value="LÜKS VİLLA">Lüks Villa</option>
+                        <option value="RENOVASYON">Renovasyon</option>
+                        <option value="MİMARİ TASARIM">Mimari Tasarım</option>
+                        <option value="TİCARİ">Ticari</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Yıl</label><input type="text" id="p-year"></div>
+            </div>
+
+            <div class="flex-row">
+                <div class="form-group"><label>Konum</label><input type="text" id="p-location"></div>
+                <div class="form-group"><label>Alan (m²)</label><input type="number" id="p-area"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Spot Açıklama</label>
+                <textarea id="p-lead" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Kapak Görseli</label>
+                <input type="file" id="p-hero-img" style="display:none" accept="image/*">
+                <label for="p-hero-img" class="custom-file-label"><i class="fas fa-camera"></i> GÖRSEL SEÇ</label>
+                <div id="hero-manager" class="image-manager"></div>
+                <div id="hero-name-label" style="margin-top:8px; font-size: 0.8rem; color: #777;"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Proje Galerisi</label>
+                <input type="file" id="p-gallery-imgs" style="display:none" accept="image/*" multiple>
+                <label for="p-gallery-imgs" class="custom-file-label"><i class="fas fa-plus"></i> FOTOĞRAF EKLE</label>
+                <div id="gallery-manager" class="image-manager"></div>
+                <div id="gallery-names-label" style="margin-top:8px; font-size: 0.8rem; color: #777;"></div>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" id="submit-btn" class="btn-main">YAYINLA</button>
+                <button type="button" id="cancel-btn" class="btn-cancel" onclick="window.cancelEdit()">İPTAL</button>
+            </div>
+            <div id="status" style="margin-top:20px; text-align:center; font-weight:800; color: var(--accent);"></div>
+            
+            <!-- MOBİLDE ÇIKIŞ BUTONU BURADA KALSIN -->
+            <button type="button" class="btn-logout-final mobile-only-btn" onclick="window.adminLogout()">
+                <i class="fas fa-power-off"></i> SİSTEMDEN ÇIKIŞ YAP
+            </button>
+        </form>
+    </div>
+
+    <!-- 2. ÖNİZLEME PANALİ (BURASI FORM-CARD'IN DIŞINA ÇIKTI) -->
+    <div class="mockup-pane">
+        <label class="preview-label-text">Canlı Önizleme</label>
+        <div class="mockup-container">
+            <div class="mockup-row">
+                <div class="mockup-text">
+                    <span id="prev-cat" class="m-cat">KATEGORİ</span>
+                    <h2 id="prev-title" class="m-title">Proje Başlığı</h2>
+                    <span id="prev-meta" class="m-meta">Konum • Yıl • Alan</span>
+                    <div id="prev-lead" class="m-lead">Açıklama...</div>
+                </div>
+                <img id="prev-hero" class="m-img" src="https://via.placeholder.com/200x130?text=Hero">
+            </div>
+            <div id="prev-gallery" class="m-gallery"></div>
+        </div>
+        <p class="mockup-info">* Bu alan web sitenizdeki görünümün simülasyonudur.</p>
+    </div>
+
+</div>
+
+    <!-- MOBİL ALT MENÜ -->
+    <div class="mobile-tabs">
+        <button class="tab-btn active" onclick="window.switchTab('form', this)">
+            <i class="fas fa-edit"></i> FORM
+        </button>
+        <button class="tab-btn" onclick="window.switchTab('list', this)">
+            <i class="fas fa-list-ul"></i> LİSTE
+        </button>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
+</html>
