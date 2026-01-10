@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <!-- 'a' harfi -->
+    <text x="38" y="80" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="90" fill="#0d1b1e">a</text>
+    
+    <!-- '²' işareti -->
+    <text x="65" y="55" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="65" fill="#0d1b1e">²</text>
+</svg>

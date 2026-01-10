@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="tr">
+  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akare² Mimarlık | Sakarya Modern Villa ve Konut Tasarımı</title>
+<meta name="description" content="Sakarya Pamukova merkezli Akare Mimarlık; Sapanca ve Serdivan bölgelerinde modern villa tasarımları, resmi ruhsat projeleri ve anahtar teslim uygulama hizmetleri sunar.">
+
+<!-- WhatsApp & Sosyal Medya Önizlemesi (OG Tags) -->
+<meta property="og:title" content="Akare² Mimarlık | Sakarya Mimarlık Ofisi">
+<meta property="og:description" content="Modern mimariyi doğa ile birleştiriyoruz. Villa tasarımı ve ruhsat projelerinde uzman kadromuzla yanınızdayız.">
+<meta property="og:image" content="gorseller/ana-sayfa/hero-1.webp">
+<meta property="og:url" content="https://akaremimarlik.com">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <script type="text/javascript">
+      window.$crisp = [];
+      window.CRISP_WEBSITE_ID = "06682cb4-0c18-4142-bb07-501508bd98de";
+      (function () {
+        d = document;
+        s = d.createElement("script");
+        s.src = "https://client.crisp.chat/l.js";
+        s.async = 1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+      })();
+
+      // 1. Kural: Daha sayfa yüklenirken butonu gizle (Kalıcı yapılandırma)
+      $crisp.push(["set", "chat:display:none", [true]]);
+
+      // 2. Kural: Crisp motoru hazır olduğunda hemen saklan (Preloader sonrası çıkışı engeller)
+      $crisp.push([
+        "on",
+        "session:loaded",
+        function () {
+          $crisp.push(["do", "chat:hide"]);
+        },
+      ]);
+
+      // 3. Kural: Chat penceresi her kapandığında butonu tekrar gizle
+      $crisp.push([
+        "on",
+        "chat:closed",
+        function () {
+          $crisp.push(["do", "chat:hide"]);
+        },
+      ]);
+
+      // Senin kendi butonun için tetikleyici fonksiyon
+      function openCustomChat() {
+        $crisp.push(["do", "chat:show"]); // Önce görünür yap
+        $crisp.push(["do", "chat:open"]); // Sonra aç
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ArchitecturalBusiness",
+        "name": "Akare Mimarlık",
+        "image": "https://akaremimarlik.com/favicon.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Pamukova Merkez",
+          "addressLocality": "Pamukova",
+          "addressRegion": "Sakarya",
+          "postalCode": "54900",
+          "addressCountry": "TR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 40.5134,
+          "longitude": 30.1311
+        },
+        "url": "https://akaremimarlik.com",
+        "telephone": "+902120000000",
+        "priceRange": "$$$"
+      }
+    </script>
+  </head>
+  <body class="loading">
+    <div id="preloader">
+      <div class="loader-content">
+        <svg viewBox="0 0 600 160" class="signature-svg">
+          <text
+            x="50%"
+            y="50%"
+            dy=".35em"
+            text-anchor="middle"
+            class="sig-text"
+          >
+            akare²
+          </text>
+        </svg>
+        <div class="loader-line"></div>
+      </div>
+    </div>
+
+    <div id="scroll-progress-bar"></div>
+
+    <header>
+      <div class="container header-layout">
+        <a href="index.html" class="logo">
+          <div class="logo-wrapper">
+            <svg viewBox="0 0 200 90" class="logo-svg">
+              <text x="50%" y="55%" text-anchor="middle" class="svg-main-text">
+                akare²
+              </text>
+              <text x="50%" y="80%" text-anchor="middle" class="svg-sub-text">
+                design studio
+              </text>
+            </svg>
+          </div>
+        </a>
+
+        <nav class="nav-desktop">
+          <a href="index.html" class="active">Ana Sayfa</a>
+          <a href="projeler.html">Projeler</a>
+          <a href="hizmetler.html">Hizmetler</a>
+          <a href="hakkimizda.html">Hakkımızda</a>
+          <a href="index.html#iletisim">Bize Ulaşın</a>
+        </nav>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </button>
+
+        <nav id="mobile-nav">
+          <div class="mobile-nav-container">
+            <div class="mobile-group" id="home-accordion">
+              <div class="mobile-group-header" onclick="toggleAccordion()">
+                Ana Sayfa <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+              <ul class="mobile-subnav">
+                <li><a href="index.html#hero">Giriş</a></li>
+                <li><a href="index.html#hizmetler">Neler Yapıyoruz?</a></li>
+                <li><a href="index.html#portfolyo">Öne Çıkanlar</a></li>
+                <li><a href="index.html#studyo">Biz Kimiz?</a></li>
+                <li><a href="index.html#iletisim">Bize Ulaşın</a></li>
+              </ul>
+            </div>
+            <a href="projeler.html" class="mobile-big-link">Projeler</a>
+            <a href="hizmetler.html" class="mobile-big-link">Hizmetler</a>
+            <a href="hakkimizda.html" class="mobile-big-link">Hakkımızda</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- Side Navigation (Masaüstü Sağ Nokta Menü) -->
+    <nav id="side-nav">
+      <a href="#hero" class="side-link active"
+        ><span class="side-dot"></span><span class="side-text">Giriş</span></a
+      >
+      <a href="#hizmetler" class="side-link"
+        ><span class="side-dot"></span
+        ><span class="side-text">Neler Yapıyoruz?</span></a
+      >
+      <a href="#portfolyo" class="side-link"
+        ><span class="side-dot"></span
+        ><span class="side-text">Öne Çıkanlar</span></a
+      >
+      <a href="#studyo" class="side-link"
+        ><span class="side-dot"></span
+        ><span class="side-text">Biz Kimiz?</span></a
+      >
+      <a href="#iletisim" class="side-link"
+        ><span class="side-dot"></span
+        ><span class="side-text">İletişim</span></a
+      >
+    </nav>
+    <section id="hero" class="hero">
+      <div class="slider-container">
+        <!-- Yeni klasör yapısına göre görsel yolları -->
+        <div
+          class="slide active"
+          style="background-image: url('gorseller/ana-sayfa/hero-1.webp')"
+        ></div>
+        <div
+          class="slide"
+          style="background-image: url('gorseller/ana-sayfa/hero-2.webp')"
+        ></div>
+        <div
+          class="slide"
+          style="background-image: url('gorseller/ana-sayfa/hero-3.webp')"
+        ></div>
+      </div>
+
+      <div class="container hero-content">
+        <div class="hero-static-text reveal-on-scroll">
+          <h1 class="display-1">
+            Doğru Tasarım Masraf Değil, <br />
+            <b>Gereksiz Harcamayı Önleyen Bir Disiplindir</b>
+          </h1>
+          <p class="hero-subtext">
+            İnşaat maliyetlerini tasarım aşamasında optimize ediyor, ölü
+            metrekareleri yok ederek yatırımınızın değerini teknik verilerle
+            maksimize ediyoruz.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. BÖLÜM: STRATEJİK HİZMETLER GRİDİ -->
+    <section id="hizmetler" class="section-padding bg-green">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-eyebrow" style="color: var(--accent)"
+            >Neler Yapıyoruz?</span
+          >
+          <h2 class="section-title" style="color: white">
+            Zihninizdeki Mekanı Teknikle Var Ediyoruz
+          </h2>
+        </div>
+
+        <div class="home-services-grid">
+          <!-- HİZMET 1 -->
+          <div class="service-card reveal-on-scroll">
+            <div class="s-card-icon">
+              <i class="fas fa-drafting-compass"></i>
+            </div>
+            <h3>Mimari Tasarım ve <br />Ruhsat Projeleri</h3>
+            <p>
+              Sakarya imar yönetmeliklerine uygun, resmi süreçleri eksiksiz
+              yönetilen ruhsat ve uygulama projeleri hazırlıyoruz.
+            </p>
+            <a href="hizmetler.html" class="s-card-link"
+              >DETAYLI BİLGİ <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+
+          <!-- HİZMET 2 -->
+          <div class="service-card reveal-on-scroll">
+            <div class="s-card-icon"><i class="fas fa-home"></i></div>
+            <h3>Modern Villa ve <br />Müstakil Konutlar</h3>
+            <p>
+              Sapanca ve çevresinde doğa ile barışık, estetik ve deprem
+              yönetmeliğine %100 uyumlu lüks yaşam alanları tasarlıyoruz.
+            </p>
+            <a href="hizmetler.html" class="s-card-link"
+              >DETAYLI BİLGİ <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+
+          <!-- HİZMET 3 -->
+          <div class="service-card reveal-on-scroll">
+            <div class="s-card-icon"><i class="fas fa-couch"></i></div>
+            <h3>İç Mimari ve <br />Anahtar Teslim Tadilat</h3>
+            <p>
+              Mekanlarınızın ruhunu değiştiren detay çözümleri, mobilya
+              tasarımları ve profesyonel uygulama denetimi sunuyoruz.
+            </p>
+            <a href="hizmetler.html" class="s-card-link"
+              >DETAYLI BİLGİ <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+
+          <!-- HİZMET 4 -->
+          <div class="service-card reveal-on-scroll">
+            <div class="s-card-icon"><i class="fas fa-map-marked-alt"></i></div>
+            <h3>Bungalov ve Turizm <br />Yatırım Projeleri</h3>
+            <p>
+              Sakarya’nın turizm potansiyeline uygun, yüksek geri dönüşlü
+              bungalov ve Tiny House yerleşim projeleri geliştiriyoruz.
+            </p>
+            <a href="hizmetler.html" class="s-card-link"
+              >DETAYLI BİLGİ <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. BÖLÜM: RAKAMLARLA GÜVEN BANDI (STAT BAR) -->
+    <section class="stats-bar">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-num">10+</span>
+            <span class="stat-label">Yıllık Saha Tecrübesi</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">150+</span>
+            <span class="stat-label">Tamamlanan Proje</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Müşteri Memnuniyeti</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">Sakarya</span>
+            <span class="stat-label">Yerel Uzmanlık</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolyo" class="section-padding">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-eyebrow">Öne Çıkanlar</span>
+          <h2 class="section-title">Seçkin Projelerimiz</h2>
+        </div>
+
+        <!-- İÇERİSİNİ TAMAMEN BOŞALTTIK, JS DOLDURACAK -->
+        <div class="portfolio-grid reveal-on-scroll">
+          <p style="text-align: center; grid-column: 1/-1; opacity: 0.3">
+            Projeler yükleniyor...
+          </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem">
+          <a href="projeler.html" class="btn-magnetic">
+            <span>TÜM PROJELERİ GÖR</span>
+            <span class="btn-icon-box-modern"
+              ><i class="fas fa-arrow-right"></i
+            ></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="studyo" class="section-padding team-section-fix">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-eyebrow">Biz Kimiz?</span>
+          <h2 class="section-title">Akare Mimarlık Ekibi</h2>
+        </div>
+
+        <!-- ÖNEMLİ: team-grid div'inin hemen altında team-card'lar olmalı -->
+        <div class="team-grid reveal-on-scroll" id="teamScrollArea"></div>
+
+        <!-- NOKTALARI SİLDİYSEN GERİ EKLE (Mobildeki kaydırma butonu bunlar) -->
+<div class="team-dots-wrapper">
+  <!-- İçindeki <div class="t-dot"> olan her şeyi sil, içi boş kalsın -->
+</div>
+      </div>
+    </section>
+
+    <section id="iletisim" class="section-padding">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-eyebrow">İLETİŞİM</span>
+          <h2 class="section-title">Bir Fikriniz mi Var?</h2>
+        </div>
+        <div class="contact-wrapper reveal-on-scroll">
+          <div class="contact-left">
+            <p class="contact-desc">
+              Gelin, kahvemizi için ve projenizi gerçeğe dönüştürmek için ilk
+              adımı atalım.
+            </p>
+            <div class="info-grid">
+              <div class="info-item">
+                <h4>ADRES</h4>
+                <p>Nişantaşı, İstanbul</p>
+              </div>
+              <div class="info-item">
+                <h4>TELEFON</h4>
+                <a href="tel:+902120000000">+90 (212) 000 00 00</a>
+              </div>
+            </div>
+            <button class="btn-chat" onclick="openCustomChat()">
+              <i class="fas fa-comments"></i> CANLI DESTEK
+            </button>
+          </div>
+          <div class="map-container-wrapper" id="contactMap">
+            <div class="map-overlay">
+              <span><i class="fas fa-hand-pointer"></i> Haritayı Aç</span>
+            </div>
+            <div class="map-box">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.283995893707!2d28.9912788!3d41.0628286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab70669255555%3A0x6734130545d9b236!2zTmnFn2FudGHFnywgSXN0YW5idWw!5e0!3m2!1str!2str!4v1715000000000!5m2!1str!2str"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid-premium">
+          <!-- 1. SÜTUN: MARKA & SOSYAL -->
+          <div class="footer-col">
+            <span class="footer-logo-text">akare²</span>
+            <p class="footer-bio">
+              Sakarya'da modern mimariyi doğa ile birleştiriyoruz.
+            </p>
+
+            <div style="font-size: 0.75rem; color: #555; margin-bottom: 15px">
+              <p style="margin-bottom: 5px">
+                <i
+                  class="fas fa-map-marker-alt"
+                  style="margin-right: 8px; color: var(--accent)"
+                ></i>
+                Pamukova, Sakarya
+              </p>
+              <p>
+                <i
+                  class="fas fa-phone-alt"
+                  style="margin-right: 8px; color: var(--accent)"
+                ></i>
+                +90 212 000 00 00
+              </p>
+            </div>
+
+            <!-- SOSYAL MEDYA (YUKARI TAŞINDI VE ORANTILI) -->
+            <div class="footer-social-top">
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- 2. SÜTUN: HİZMETLER (2 SATIRLI GRID) -->
+          <div class="footer-col">
+            <h4>Hizmetlerimiz</h4>
+            <ul class="footer-services-list">
+              <li>Villa Tasarımı</li>
+              <li>Restorasyon</li>
+              <li>İç Mimari</li>
+              <li>Peyzaj</li>
+              <li>Şantiye</li>
+              <li>Danışmanlık</li>
+            </ul>
+          </div>
+
+          <!-- 3. SÜTUN: BÖLGELER (DARALTILMIŞ) -->
+          <div class="footer-col">
+            <h4>Hizmet Bölgeleri</h4>
+            <div class="region-list">
+              <span>Pamukova</span> <span>Sapanca</span> <span>Serdivan</span>
+              <span>Adapazarı</span> <span>Arifiye</span> <span>Erenler</span>
+              <span>Hendek</span> <span>Akyazı</span> <span>Geyve</span>
+              <span>Taraklı</span> <span>Karasu</span> <span>Kocaali</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Akare Mimarlık. Tüm Hakları Saklıdır.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 1. MASAÜSTÜ: AKILLI AKSİYON BARI (DOCK) -->
+    <div class="action-dock-container">
+      <div class="action-dock">
+        <a href="index.html#iletisim" class="dock-item dock-main-btn">
+          <span class="dock-text">Teklif Al</span>
+        </a>
+        <div class="dock-separator"></div>
+        <div class="dock-icons">
+          <a
+            href="https://wa.me/905000000000"
+            target="_blank"
+            class="dock-icon-link"
+          >
+            <div class="icon-circle"><i class="fab fa-whatsapp"></i></div>
+          </a>
+          <a href="tel:+902120000000" class="dock-icon-link">
+            <div class="icon-circle"><i class="fas fa-phone-alt"></i></div>
+          </a>
+        </div>
+        <div class="dock-separator"></div>
+        <div onclick="openCustomChat()" class="dock-item dock-chat-btn">
+          <div class="chat-icon-group">
+            <i class="fas fa-comment-dots chat-main-icon"></i>
+            <div class="status-dot-wrapper">
+              <div class="status-dot"></div>
+              <div class="status-dot-pulse"></div>
+            </div>
+          </div>
+          <span class="dock-text">Canlı Destek!</span>
+        </div>
+      </div>
+    </div>
+    <!-- 2. MOBİL: DİKEY AKILLI SİSTEM (FAB) -->
+    <div class="mobile-comm-wrapper" id="mobileCommWrapper">
+      <button id="mScrollTopBtn" class="m-stack-btn m-scroll-btn">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+
+      <div class="mobile-comm-options" id="mobileCommOptions">
+        <a href="tel:+902120000000" class="m-stack-btn m-phone">
+          <span class="m-side-label">Bizi Arayın</span>
+          <i class="fas fa-phone-alt"></i>
+        </a>
+        <a
+          href="https://wa.me/905000000000"
+          target="_blank"
+          class="m-stack-btn m-whatsapp"
+        >
+          <span class="m-side-label">WhatsApp</span>
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <div onclick="openCustomChat()" class="m-stack-btn m-chat">
+          <span class="m-side-label">Canlı Destek!</span>
+          <i class="fas fa-comments"></i>
+          <div class="m-live-dot"></div>
+        </div>
+      </div>
+
+      <button class="m-trigger-btn" onclick="toggleMobileComm()">
+        <span class="m-teklif-label">Teklif Al</span>
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+
+    <!-- 3. MASAÜSTÜ YUKARI ÇIK BUTONU -->
+    <button id="scrollTopBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Admin panelini arama sonuçlarından gizle
+Disallow: /admin.html
+Disallow: /admin.js
+Disallow: /server.js
+
+# Yol haritasının yerini botlara göster
+Sitemap: https://akaremimarlik.com/sitemap.xml

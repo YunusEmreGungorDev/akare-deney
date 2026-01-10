@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Akare Mimarlık Proje Detayları" />
+<title>Mimari Proje Detayları | Akare² Mimarlık</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- Canlı Destek Script (Crisp) -->
+    <script type="text/javascript">
+      window.$crisp = [];
+      window.CRISP_WEBSITE_ID = "06682cb4-0c18-4142-bb07-501508bd98de";
+      (function () {
+        d = document;
+        s = d.createElement("script");
+        s.src = "https://client.crisp.chat/l.js";
+        s.async = 1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+      })();
+      $crisp.push(["set", "chat:display:none", [true]]);
+    </script>
+  </head>
+  <body class="loaded">
+    <!-- Preloader olmadığı için direkt loaded -->
+
+    <header>
+      <div class="container header-layout">
+        <a href="index.html" class="logo">
+          <div class="logo-wrapper">
+            <svg viewBox="0 0 200 90" class="logo-svg">
+              <text x="50%" y="55%" text-anchor="middle" class="svg-main-text">
+                akare²
+              </text>
+              <text x="50%" y="80%" text-anchor="middle" class="svg-sub-text">
+                design studio
+              </text>
+            </svg>
+          </div>
+        </a>
+
+        <nav class="nav-desktop">
+          <a href="index.html">Ana Sayfa</a>
+          <a href="projeler.html" class="active">Projeler</a>
+          <a href="hizmetler.html">Hizmetler</a>
+          <a href="hakkimizda.html">Hakkımızda</a>
+          <a href="index.html#iletisim">Bize Ulaşın</a>
+        </nav>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </button>
+
+        <nav id="mobile-nav">
+          <div class="mobile-nav-container">
+            <div class="mobile-group" id="home-accordion">
+              <div class="mobile-group-header" onclick="toggleAccordion()">
+                Ana Sayfa <i class="fas fa-chevron-down chevron-icon"></i>
+              </div>
+              <ul class="mobile-subnav">
+                <li><a href="index.html#hero">Giriş</a></li>
+                <li><a href="index.html#hizmetler">Uzmanlık Alanları</a></li>
+                <li><a href="index.html#portfolyo">Öne Çıkanlar</a></li>
+                <li><a href="index.html#studyo">Ekibimiz</a></li>
+                <li><a href="index.html#iletisim">Bize Ulaşın</a></li>
+              </ul>
+            </div>
+            <a href="projeler.html" class="mobile-big-link active">Projeler</a>
+            <a href="hizmetler.html" class="mobile-big-link">Hizmetler</a>
+            <a href="hakkimizda.html" class="mobile-big-link">Hakkımızda</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="editorial-wrapper">
+      <section id="det-hero-bg" class="editorial-hero">
+        <div class="hero-overlay-text">
+          <div class="hero-project-meta" id="det-year-loc">YÜKLENİYOR...</div>
+          <h1 class="hero-project-name" id="det-title">...</h1>
+        </div>
+      </section>
+
+      <div class="container">
+        <section class="editorial-main">
+          <aside class="editorial-sidebar">
+            <div class="sidebar-item">
+              <h4>KONUM</h4>
+              <p id="det-location">-</p>
+            </div>
+            <div class="sidebar-item">
+              <h4>ALAN</h4>
+              <p id="det-area">-</p>
+            </div>
+            <div class="sidebar-item">
+              <h4>HİZMET</h4>
+              <p id="det-category">-</p>
+            </div>
+            <div class="sidebar-item">
+              <h4>YIL</h4>
+              <p id="det-year">-</p>
+            </div>
+          </aside>
+
+          <article class="editorial-story">
+            <h2 class="story-heading">
+              Tasarım <br />
+              <b>Yaklaşımı</b>
+            </h2>
+            <div id="det-lead" class="story-text"></div>
+          </article>
+        </section>
+
+        <section class="asymmetric-gallery" id="editorial-gallery"></section>
+      </div>
+
+      <div
+        class="next-project-banner"
+        onclick="window.location.href='projeler.html'"
+      >
+        <span>KEŞFETMEYE DEVAM ET</span>
+        <h2>Tüm Projeler &rarr;</h2>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid-premium">
+          <!-- 1. SÜTUN: MARKA & SOSYAL -->
+          <div class="footer-col">
+            <span class="footer-logo-text">akare²</span>
+            <p class="footer-bio">
+              Sakarya'da modern mimariyi doğa ile birleştiriyoruz.
+            </p>
+
+            <div style="font-size: 0.75rem; color: #555; margin-bottom: 15px">
+              <p style="margin-bottom: 5px">
+                <i
+                  class="fas fa-map-marker-alt"
+                  style="margin-right: 8px; color: var(--accent)"
+                ></i>
+                Pamukova, Sakarya
+              </p>
+              <p>
+                <i
+                  class="fas fa-phone-alt"
+                  style="margin-right: 8px; color: var(--accent)"
+                ></i>
+                +90 212 000 00 00
+              </p>
+            </div>
+
+            <!-- SOSYAL MEDYA (YUKARI TAŞINDI VE ORANTILI) -->
+            <div class="footer-social-top">
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- 2. SÜTUN: HİZMETLER (2 SATIRLI GRID) -->
+          <div class="footer-col">
+            <h4>Hizmetlerimiz</h4>
+            <ul class="footer-services-list">
+              <li>Villa Tasarımı</li>
+              <li>Restorasyon</li>
+              <li>İç Mimari</li>
+              <li>Peyzaj</li>
+              <li>Şantiye</li>
+              <li>Danışmanlık</li>
+            </ul>
+          </div>
+
+          <!-- 3. SÜTUN: BÖLGELER (DARALTILMIŞ) -->
+          <div class="footer-col">
+            <h4>Hizmet Bölgeleri</h4>
+            <div class="region-list">
+              <span>Pamukova</span> <span>Sapanca</span> <span>Serdivan</span>
+              <span>Adapazarı</span> <span>Arifiye</span> <span>Erenler</span>
+              <span>Hendek</span> <span>Akyazı</span> <span>Geyve</span>
+              <span>Taraklı</span> <span>Karasu</span> <span>Kocaali</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Akare Mimarlık. Tüm Hakları Saklıdır.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- STICKY BARS (Canlı Destek Dahil) -->
+    <!-- 1. MASAÜSTÜ: AKILLI AKSİYON BARI (DOCK) -->
+    <div class="action-dock-container">
+      <div class="action-dock">
+        <a href="index.html#iletisim" class="dock-item dock-main-btn">
+          <span class="dock-text">Teklif Al</span>
+        </a>
+        <div class="dock-separator"></div>
+        <div class="dock-icons">
+          <a
+            href="https://wa.me/905000000000"
+            target="_blank"
+            class="dock-icon-link"
+          >
+            <div class="icon-circle"><i class="fab fa-whatsapp"></i></div>
+          </a>
+          <a href="tel:+902120000000" class="dock-icon-link">
+            <div class="icon-circle"><i class="fas fa-phone-alt"></i></div>
+          </a>
+        </div>
+        <div class="dock-separator"></div>
+        <div onclick="openCustomChat()" class="dock-item dock-chat-btn">
+          <div class="chat-icon-group">
+            <i class="fas fa-comment-dots chat-main-icon"></i>
+            <div class="status-dot-wrapper">
+              <div class="status-dot"></div>
+              <div class="status-dot-pulse"></div>
+            </div>
+          </div>
+          <span class="dock-text">Canlı Destek!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. MOBİL: DİKEY AKILLI SİSTEM (FAB) -->
+    <div class="mobile-comm-wrapper" id="mobileCommWrapper">
+      <button
+        id="mScrollTopBtn"
+        class="m-stack-btn m-scroll-btn"
+        style="display: none"
+      >
+        <i class="fas fa-chevron-up"></i>
+      </button>
+
+      <div class="mobile-comm-options" id="mobileCommOptions">
+        <a href="tel:+902120000000" class="m-stack-btn m-phone">
+          <span class="m-side-label">Bizi Arayın</span>
+          <i class="fas fa-phone-alt"></i>
+        </a>
+        <a
+          href="https://wa.me/905000000000"
+          target="_blank"
+          class="m-stack-btn m-whatsapp"
+        >
+          <span class="m-side-label">WhatsApp</span>
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <div onclick="openCustomChat()" class="m-stack-btn m-chat">
+          <span class="m-side-label">Canlı Destek!</span>
+          <i class="fas fa-comments"></i>
+          <div class="m-live-dot"></div>
+        </div>
+      </div>
+
+      <button class="m-trigger-btn" onclick="toggleMobileComm()">
+        <span class="m-teklif-label">Teklif Al</span>
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+
+<!-- GALERİ LIGHTBOX (TÜM SAYFALARDA AYNI OLMALIDIR) -->
+<div id="project-lightbox" class="lightbox">
+    <div class="lightbox-header">
+        <div id="lb-counter" class="lb-counter">1 / 1</div>
+        <div class="lightbox-close" onclick="closeLightbox()">&times;</div>
+    </div>
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper" id="swiper-wrapper"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <div class="lightbox-footer">
+        <div class="lb-content">
+            <div class="lb-info-group">
+                <span id="lb-category" class="lb-tag"></span>
+                <h3 id="lb-title"></h3>
+                <p id="lb-details"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module" src="firebase-config.js"></script>
+    <script>
+      window.isDetailPage = true;
+    </script>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

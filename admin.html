@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>AKARE | Admin Dashboard</title>
+
+    <!-- Fontlar & İkonlar -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- Merkezi CSS Dosyamız -->
+    <link rel="stylesheet" href="admin-style.css" />
+  </head>
+
+  <body class="tab-form">
+    <!-- 1. MATRIX GİRİŞ PROTOKOLÜ -->
+    <div id="matrix-overlay">
+      <div id="matrix-content">
+        <p id="matrix-line1"></p>
+        <p id="matrix-line2"></p>
+        <!-- admin.html içinde #pass-area div'ini komple bununla değiştir -->
+        <div id="pass-area" style="display: none">
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <input
+              type="email"
+              id="admin-email"
+              placeholder="ADMIN E-POSTA"
+              style="
+                background: transparent;
+                border: 1px solid #00ff41;
+                color: #00ff41;
+                padding: 15px;
+                font-family: inherit;
+              "
+            />
+            <input
+              type="password"
+              id="admin-pass"
+              placeholder="ERİŞİM ANAHTARI"
+              style="
+                background: transparent;
+                border: 1px solid #00ff41;
+                color: #00ff41;
+                padding: 15px;
+                font-family: inherit;
+              "
+            />
+
+            <button
+              id="login-btn"
+              onclick="window.adminLogin()"
+              style="
+                background: #00ff41;
+                color: #000;
+                border: none;
+                padding: 15px;
+                cursor: pointer;
+                font-weight: 800;
+                font-family: inherit;
+                margin-top: 10px;
+              "
+            >
+              SİSTEME GİRİŞ YAP
+            </button>
+          </div>
+          <p
+            id="matrix-error"
+            style="
+              color: #ff4d4d;
+              margin-top: 15px;
+              display: none;
+              font-weight: bold;
+              text-align: center;
+            "
+          >
+            ! ERİŞİM REDDEDİLDİ: HATALI KİMLİK
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. LİSTE PANELİ (SIDEBAR) -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-nav-wrapper">
+          <!-- Başlık (Dinamik olacak) -->
+          <h2 id="sidebar-main-title" style="margin: 0">Projeler</h2>
+
+          <!-- Masaüstü Navigasyon Butonu (Mobilde gizli) -->
+          <button
+            id="desktop-nav-btn"
+            class="desktop-nav-link"
+            onclick="window.handleDesktopToggle()"
+          >
+            <i class="fas fa-users"></i> <span>EKİP</span>
+          </button>
+        </div>
+        <p id="sidebar-sub-title">Tüm portfolyo yönetimi</p>
+
+
+<input type="text" id="admin-search" placeholder="Proje ara..." oninput="window.filterAdminList()">
+
+<!-- PROFESYONEL FİLTRE ÇEKMECESİ -->
+<div class="admin-filter-container">
+    <button type="button" class="filter-main-btn" onclick="window.toggleFilterPanel()">
+        <span><i class="fas fa-filter"></i> FİLTRELE</span>
+        <i class="fas fa-chevron-down" id="filter-chevron"></i>
+    </button>
+    
+    <div id="filter-drawer" class="filter-drawer">
+        <div class="drawer-inner">
+            <div class="filter-group-alt">
+                <label>Kategori</label>
+                <select id="admin-filter-cat" onchange="window.filterAdminList()">
+                    <option value="all">Tümü</option>
+                </select>
+            </div>
+
+            <div class="filter-group-alt">
+                <label>Şehir</label>
+                <select id="admin-filter-city" onchange="window.handleSidebarCityChange()">
+                    <option value="all">Tümü</option>
+                </select>
+            </div>
+
+            <div class="filter-group-alt">
+                <label>İlçe</label>
+                <select id="admin-filter-dist" onchange="window.filterAdminList()">
+                    <option value="all">Tümü</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn-clear-minimal" onclick="window.clearAdminFilters()">
+                FİLTRELERİ TEMİZLE
+            </button>
+        </div>
+    </div>
+</div>
+      </div>
+      <div id="admin-project-list" class="project-list"></div>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout-final" onclick="window.adminLogout()">
+          <i class="fas fa-power-off"></i> SİSTEMDEN ÇIKIŞ YAP
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. ANA İÇERİK ALANI -->
+    <div class="main-content">
+      <!-- FORM KARTI -->
+      <div class="form-card">
+        <h2 id="form-mode-title">Yeni Proje</h2>
+
+        <form id="projectForm">
+          <!-- Hata Mesaj Alanı -->
+          <div id="validation-errors"></div>
+
+          <!-- Gizli Düzenleme ID'si -->
+          <input type="hidden" id="editing-id" />
+
+          <!-- BÖLÜM 1: GENEL BİLGİLER -->
+          <section class="admin-card">
+            <header class="admin-card-header">
+              <h3><i class="fas fa-id-card"></i> Genel Bilgiler</h3>
+            </header>
+
+            <div class="form-group">
+              <label>Proje Adı</label>
+              <input
+                type="text"
+                id="p-title"
+                required
+                placeholder="Örn: Sapanca Gümüş Villa"
+              />
+            </div>
+
+<div class="form-group seo-input-wrapper">
+    <label><i class="fas fa-search"></i> Google Arama Başlığı</label>
+    <input type="text" id="p-seo-title" placeholder="Otomatik oluşturulacak...">
+    
+    <!-- Mimar için görsel ipucu -->
+<div class="seo-hint" style="margin-top: 10px; padding: 15px; background: #fff; border: 1px solid #dfe1e5; border-radius: 8px; max-width: 600px; font-family: arial, sans-serif;">
+    <!-- Google URL -->
+    <div style="color: #202124; font-size: 14px; margin-bottom: 4px;">
+        https://akaremimarlik.com › proje <span style="color: #70757a;">▼</span>
+    </div>
+    <!-- Mavi Başlık (Dinamik) -->
+    <div id="prev-seo-title" style="color: #1a0dab; font-size: 20px; line-height: 1.3; margin-bottom: 3px; cursor: pointer;">
+        Proje Başlığı Buraya Gelecek...
+    </div>
+    <!-- Gri Alt Yazı -->
+    <div style="color: #4d5156; font-size: 14px; line-height: 1.58;">
+        <span style="font-weight: bold;">Spot Açıklama:</span> Projeniz için yazdığınız kısa özet metni burada görünerek müşterilerin ilgisini çeker.
+    </div>
+</div>
+</div>
+
+            <div class="featured-wrapper">
+              <input type="checkbox" id="p-featured" />
+              <label for="p-featured">⭐ Ana Sayfada Öne Çıkar</label>
+            </div>
+
+<!-- HİZMET TÜRÜ (TEK SATIR) -->
+<div class="form-group">
+    <label>Hizmet Türü</label>
+    <div class="category-inline-wrapper">
+        <select id="p-service-type" required>
+            <option value="">Kategori Seçin...</option>
+        </select>
+        <button type="button" class="btn-inline-add" onclick="window.toggleInlineArea('new-cat-area')">+</button>
+    </div>
+    <div id="new-cat-area" class="inline-input-panel">
+        <div class="inline-row">
+            <input type="text" id="inline-cat-input" placeholder="Yeni kategori...">
+            <button type="button" class="btn-inline-confirm" onclick="window.saveNewCategory()">Ekle</button>
+        </div>
+        <div id="inline-cat-list" class="inline-cat-list"></div>
+    </div>
+</div>
+
+<!-- ŞEHİR VE İLÇE (İKİLİ SATIR) -->
+<div class="flex-row location-grid">
+    <div class="form-group">
+        <label>Şehir</label>
+        <div class="category-inline-wrapper">
+<select id="p-city" required onchange="window.handleCityChange()">
+    <!-- JS dolduracak -->
+</select>
+            <button type="button" class="btn-inline-add" onclick="window.toggleInlineArea('new-city-area')">+</button>
+        </div>
+        <div id="new-city-area" class="inline-input-panel">
+            <div class="inline-row">
+                <input type="text" id="inline-city-input" placeholder="Yeni şehir...">
+                <button type="button" class="btn-inline-confirm" onclick="window.saveNewLocation('city')">Ekle</button>
+            </div>
+            <div id="inline-city-list" class="inline-cat-list"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>İlçe</label>
+        <div class="category-inline-wrapper">
+            <select id="p-district" required>
+                <option value="">Yükleniyor...</option>
+            </select>
+            <button type="button" class="btn-inline-add" onclick="window.toggleInlineArea('new-dist-area')">+</button>
+        </div>
+        <div id="new-dist-area" class="inline-input-panel">
+            <div class="inline-row">
+                <input type="text" id="inline-dist-input" placeholder="Yeni ilçe...">
+                <button type="button" class="btn-inline-confirm" onclick="window.saveNewLocation('district')">Ekle</button>
+            </div>
+            <div id="inline-dist-list" class="inline-cat-list"></div>
+        </div>
+    </div>
+</div>
+
+            <div class="project-meta-grid">
+              <div class="form-group">
+                <label>Yıl</label>
+                <input type="text" id="p-year" />
+              </div>
+              <div class="form-group">
+                <label>Konum</label>
+                <input type="text" id="p-location" />
+              </div>
+              <div class="form-group">
+                <label>Alan (m²)</label>
+                <input type="number" id="p-area" />
+              </div>
+            </div>
+          </section>
+
+          <!-- BÖLÜM 2: PROJE METİNLERİ -->
+          <section class="admin-card">
+            <header class="admin-card-header">
+              <h3><i class="fas fa-pen-nib"></i> Proje Metinleri</h3>
+            </header>
+
+            <div class="form-group">
+              <label>Spot Açıklama (Kısa Özet)</label>
+              <textarea
+                id="p-lead"
+                rows="3"
+                placeholder="Kartlarda görünecek kısa giriş cümlesi..."
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Proje Hikayesi (Detaylı Anlatım)</label>
+              <textarea
+                id="p-story"
+                rows="8"
+                placeholder="Mimari tasarım sürecini buraya yazın..."
+              ></textarea>
+            </div>
+          </section>
+
+          <!-- BÖLÜM 3: MEDYA YÖNETİMİ -->
+          <section class="admin-card media-upload-section">
+            <header class="admin-card-header">
+              <h3><i class="fas fa-images"></i> Görsel Yönetimi</h3>
+            </header>
+
+            <div class="flex-row">
+              <!-- Kapak -->
+              <aside class="upload-box">
+                <label>Kapak Görseli</label>
+                <input type="file" id="p-hero-img" hidden accept="image/*" />
+                <label for="p-hero-img" class="custom-file-label">
+                  <i class="fas fa-camera"></i> GÖRSEL SEÇ
+                </label>
+                <div id="hero-manager" class="image-manager"></div>
+              </aside>
+
+              <!-- Galeri -->
+              <aside class="upload-box">
+                <label>Proje Galerisi</label>
+                <input
+                  type="file"
+                  id="p-gallery-imgs"
+                  hidden
+                  accept="image/*"
+                  multiple
+                />
+                <label for="p-gallery-imgs" class="custom-file-label">
+                  <i class="fas fa-plus"></i> FOTOĞRAF EKLE
+                </label>
+                <div id="gallery-manager" class="image-manager"></div>
+              </aside>
+            </div>
+          </section>
+
+          <!-- AKSİYON BUTONLARI -->
+          <div class="form-actions">
+            <button type="submit" id="submit-btn" class="btn-main">
+              PROJEYİ YAYINLA / GÜNCELLE
+            </button>
+            <button
+              type="button"
+              id="cancel-btn"
+              class="btn-cancel"
+              onclick="window.cancelEdit()"
+            >
+              DÜZENLEMEYİ İPTAL ET
+            </button>
+            <div id="status"></div>
+          </div>
+        </form>
+
+        <!-- Mobil İçin Çıkış Butonu -->
+        <div class="mobile-only-logout">
+          <button
+            type="button"
+            class="btn-logout-final"
+            onclick="window.adminLogout()"
+          >
+            <i class="fas fa-power-off"></i> SİSTEMDEN ÇIKIŞ YAP
+          </button>
+        </div>
+      </div>
+      <!-- EKİP YÖNETİM PANELİ (YENİ) -->
+      <div id="team-pane" class="form-card" style="display: none">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+          "
+        >
+          <h2 style="margin: 0">Ekip Yönetimi</h2>
+          <!-- YENİ ÜYE EKLEME BUTONU -->
+          <button
+            class="btn-mini btn-mini-edit"
+            onclick="window.addNewTeamMember()"
+            style="width: auto; padding: 0 15px; height: 35px; gap: 8px"
+          >
+            <i class="fas fa-plus"></i> YENİ ÜYE
+          </button>
+        </div>
+        <div id="admin-team-list" class="project-list">
+          <!-- JS ile dolacak -->
+        </div>
+
+        <div
+          id="team-edit-form"
+          style="
+            display: none;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+          "
+        >
+          <h3 id="team-form-title">Üyeyi Düzenle</h3>
+          <input type="hidden" id="team-id" />
+          <div class="form-group">
+            <label>İsim Soyisim</label>
+            <input type="text" id="t-name" />
+          </div>
+          <div class="form-group">
+            <label>Unvan</label>
+            <input type="text" id="t-role" />
+          </div>
+          <div class="form-group">
+            <label>Fotoğraf</label>
+            <input type="file" id="t-file" accept="image/*" />
+            <div id="team-img-prev" style="margin-top: 10px"></div>
+          </div>
+          <button
+            type="button"
+            class="btn-main"
+            onclick="window.saveTeamMember()"
+          >
+            KAYDET
+          </button>
+          <button
+            type="button"
+            class="btn-cancel"
+            style="display: block"
+            onclick="document.getElementById('team-edit-form').style.display='none'"
+          >
+            İPTAL
+          </button>
+        </div>
+      </div>
+      <!-- 4. CANLI ÖNİZLEME PANALİ (MOCKUP) -->
+      <div class="mockup-pane">
+        <span class="preview-label-text"
+          ><i class="fas fa-eye"></i> Canlı Önizleme</span
+        >
+
+        <div class="mockup-container">
+          <span class="preview-badge">AKARE ÖNİZLEME</span>
+
+          <div class="m-img-wrapper">
+            <img
+              id="prev-hero"
+              class="m-img"
+              src="https://placehold.co/600x400?text=Kapak+Görseli"
+            />
+            <div class="m-content-overlay">
+              <span id="prev-cat" class="m-cat">KATEGORİ</span>
+              <h2 id="prev-title" class="m-title">Proje Başlığı</h2>
+              <div id="prev-meta" class="m-meta">Konum • Yıl • Alan</div>
+            </div>
+          </div>
+
+          <div class="m-details-preview">
+            <div id="prev-lead" class="m-lead-text">
+              Spot açıklama buraya gelecek...
+            </div>
+            <div id="prev-story" class="m-story-text">
+              Proje hikayesi burada görünecek...
+            </div>
+          </div>
+
+          <div id="prev-gallery" class="m-gallery-grid">
+            <!-- Seçilen resimlerin önizlemesi -->
+          </div>
+        </div>
+
+        <p class="mockup-info">
+          * Bu alan web sitenizdeki görünümün simülasyonudur.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5. MOBİL ALT MENÜ (TABS) -->
+    <div class="mobile-tabs">
+      <button class="tab-btn active" onclick="window.switchTab('form', this)">
+        <i class="fas fa-edit"></i> FORM
+      </button>
+      <button class="tab-btn" onclick="window.switchTab('list', this)">
+        <i class="fas fa-list-ul"></i> LİSTE
+      </button>
+      <button class="tab-btn" onclick="window.switchTab('team', this)">
+        <i class="fas fa-users"></i> EKİP
+      </button>
+    </div>
+
+    <!-- JavaScript Modülü -->
+    <script type="module" src="admin.js"></script>
+  </body>
+</html>
